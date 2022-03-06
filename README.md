@@ -1,12 +1,22 @@
 # PaperMC CLI
 
-A simple CLI tool for setting up a PaperMC Server
+A simple interactive CLI tool for setting up a PaperMC Server
+
+## Installing
+
+```shell
+# Install the CLI globally
+npm i -g papermc-cli
+
+# Run it with
+paper
+```
 
 ## TODO
 
-- [ ] Ask for jar information
-  - [ ] Version
-  - [ ] Build
+- [x] Ask for jar information
+  - [x] Version
+  - [x] Build
 - [ ] server.properties information
   - gamemode
   - command blocks

@@ -1,6 +1,6 @@
 {
   "name": "papermc-cli",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A CLI to help in creating PaperMC Minecraft servers.",
   "main": "index.js",
   "scripts": {
@@ -33,5 +33,9 @@
   "bugs": {
     "url": "https://github.com/funnyboy-roks/PaperMC-CLI/issues"
   },
-  "homepage": "https://github.com/funnyboy-roks/PaperMC-CLI#readme"
+  "homepage": "https://github.com/funnyboy-roks/PaperMC-CLI#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/funnyboy-roks/PaperMC-CLI.git"
+  }
 }

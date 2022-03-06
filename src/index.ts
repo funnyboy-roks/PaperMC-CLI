@@ -4,6 +4,7 @@ import { readdirSync } from 'fs';
 import colors from 'colors';
 import { jarPrompt, serverPropertiesPrompt } from './prompt';
 import { getJar } from './paper';
+import { createProperties } from './server-properties';
 
 const filesPresent = readdirSync('./');
 
@@ -31,19 +32,24 @@ const overwritePrompt = async (): Promise<boolean> => {
 
 const main = async () => {
 
-    if(filesPresent.length > 0) {
+    if (filesPresent.length > 0) {
         const overwrite = await overwritePrompt();
-        if(!overwrite) {
+        if (!overwrite) {
             console.log(colors.red('Aborting...'));
             process.exit(0);
         }
     }
     const jarAnswers = await jarPrompt();
-    process.stdout.write('Downloading Server Jar... '.yellow); // Prevent newline on end
+    console.log('Downloading Server Jar... '.yellow);
     getJar(jarAnswers.version, jarAnswers.build);
 
-    // const propertiesAnswers = await serverPropertiesPrompt();
+    const propertiesAnswers = await serverPropertiesPrompt();
+    if (propertiesAnswers) {
+        console.log('Creating Server Properties... '.yellow);
+        createProperties(propertiesAnswers);
+    }
 
-}
+
+};
 
 main().then(console.log);

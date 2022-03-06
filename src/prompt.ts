@@ -72,9 +72,17 @@ export type PropertiesAnswers = {
     port: number,
 }
 
-export const serverPropertiesPrompt = async (): Promise<PropertiesAnswers> => {
+export const serverPropertiesPrompt = async (): Promise<PropertiesAnswers|null> => {
+    const { customise } = await inquirer.prompt([
+        {
+            type: 'confirm',
+            name: 'customise',
+            message: 'Would you like to customise the server properties?',
+            default: true,
+        }
+    ]);
+    if(!customise) return null;
     return await inquirer.prompt([
-
         {
             type: 'input',
             name: 'opped',
@@ -93,6 +101,57 @@ export const serverPropertiesPrompt = async (): Promise<PropertiesAnswers> => {
             },
             filter: (input: string) => {
                 return input.length === 0 ? null : input.split(',').map(v => v.trim());
+            },
+        },
+        {
+            type: 'list',
+            name: 'gamemode',
+            message: 'Which gamemode should be used?',
+            choices: ['survival', 'creative', 'adventure', 'spectator'],
+            transformer: (input: string) => {
+                return input.charAt(0).toUpperCase() + input.slice(1);
+            },
+        },
+        {
+            type: 'confirm',
+            name: 'commandBlocks',
+            message: 'Enable Command Blocks?',
+            default: true,
+        },
+        {
+            type: 'input',
+            name: 'motd',
+            message: 'MOTD (Text below server name in menu)',
+            default: 'A Minecraft server',
+        },
+        {
+            type: 'confirm',
+            name: 'pvp',
+            message: 'Enable PvP?',
+            default: true,
+        },
+        {
+            type: 'input',
+            name: 'viewDistance',
+            message: 'Server view distance?',
+            default: 10,
+            validate: (input: string) => {
+                if (isNaN(+input) || +input < 1 || Math.floor(+input) !== +input) {
+                    return 'Please enter a positive integer!';
+                }
+                return true;
+            },
+        },
+        {
+            type: 'input',
+            name: 'port',
+            message: 'What port should the server be running on?',
+            default: 25565,
+            validate: (input: string) => {
+                if (isNaN(+input) || +input < 1024 || +input > 65535 || Math.floor(+input) !== +input) {
+                    return 'Please enter an integer between 1024 and 65535!';
+                }
+                return true;
             },
         },
         {

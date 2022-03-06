@@ -70,9 +70,10 @@ export type PropertiesAnswers = {
     maxPlayers: number,
     viewDistance: number,
     port: number,
+    eula: boolean,
 }
 
-export const serverPropertiesPrompt = async (): Promise<PropertiesAnswers|null> => {
+export const serverPropertiesPrompt = async (): Promise<PropertiesAnswers | null> => {
     const { customise } = await inquirer.prompt([
         {
             type: 'confirm',
@@ -81,7 +82,7 @@ export const serverPropertiesPrompt = async (): Promise<PropertiesAnswers|null> 
             default: true,
         }
     ]);
-    if(!customise) return null;
+    if (!customise) return null;
     return await inquirer.prompt([
         {
             type: 'input',
@@ -108,6 +109,7 @@ export const serverPropertiesPrompt = async (): Promise<PropertiesAnswers|null> 
             name: 'gamemode',
             message: 'Which gamemode should be used?',
             choices: ['survival', 'creative', 'adventure', 'spectator'],
+            default: 0,
             transformer: (input: string) => {
                 return input.charAt(0).toUpperCase() + input.slice(1);
             },
@@ -161,4 +163,33 @@ export const serverPropertiesPrompt = async (): Promise<PropertiesAnswers|null> 
             default: true,
         },
     ]) as PropertiesAnswers;
+};
+
+export type ScriptAnswers = {
+    createScript: boolean,
+    memory: number,
+}
+
+export const startScriptPrompt = async (): Promise<ScriptAnswers> => {
+    return await inquirer.prompt([
+        {
+            type: 'confirm',
+            name: 'createScript',
+            message: 'Would you like to generate s start script?',
+            default: true,
+        },
+        {
+            type: 'input',
+            name: 'memory',
+            message: 'How many GB of memory should the server use?',
+            default: '2',
+            validate: (input: string) => {
+                if (isNaN(+input) || +input < 1 || Math.floor(+input) !== +input) {
+                    return 'Please enter a positive integer!';
+                }
+                return true;
+            },
+            when: (answers) => answers.createScript,
+        }
+    ]) as ScriptAnswers;
 };

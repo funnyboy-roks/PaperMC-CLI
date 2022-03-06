@@ -17,7 +17,7 @@ paper
 - [x] Ask for jar information
   - [x] Version
   - [x] Build
-- [ ] server.properties information
+- [x] server.properties information
   - gamemode
   - command blocks
   - motd
@@ -28,4 +28,6 @@ paper
   - view distance
   - port
   - spawn monsters
+- [ ] Gen Start Scripts?
+  - start.sh and start.bat
   - 

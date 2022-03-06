@@ -1,6 +1,6 @@
 {
   "name": "papermc-cli",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A CLI to help in creating PaperMC Minecraft servers.",
   "main": "index.js",
   "scripts": {

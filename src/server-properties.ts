@@ -1,6 +1,7 @@
 import { PropertiesAnswers } from './prompt';
 import { promises } from 'fs';
 import axios from 'axios';
+import { genEULA, genOps, genWhitelist } from './generators';
 
 export const getDefaultProperties = async (): Promise<Map<string, any>> => {
     const { data } = await axios.get('https://server.properties/');
@@ -29,6 +30,7 @@ export const createProperties = async (propertiesAnswers: PropertiesAnswers) => 
     map.set('motd', propertiesAnswers.motd);
     map.set('view-distance', propertiesAnswers.viewDistance);
     map.set('server-port', propertiesAnswers.port);
+    map.set('white-list', propertiesAnswers.whitelist !== null);
 
     let out = '# This file was generated with PaperMC-CLI (https://www.npmjs.com/package/papermc-cli)';
     map.forEach((value, key) => {
@@ -36,6 +38,10 @@ export const createProperties = async (propertiesAnswers: PropertiesAnswers) => 
     });
 
     await promises.writeFile('server.properties', out);
+
+    genWhitelist(propertiesAnswers.whitelist);
+    genOps(propertiesAnswers.opped);
+    genEULA(propertiesAnswers.eula);
 
 
 };

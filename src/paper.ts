@@ -11,7 +11,7 @@ export const getBuilds = async (version: string): Promise<PaperBuilds> => {
     return response.data as PaperBuilds;
 };
 
-export const getJar = async (version: string, build: Number) => {
+export const getJar = async (version: string, build: number) => {
     const ws = createWriteStream('paper.jar');
     const response = await axios.get(`https://papermc.io/api/v2/projects/paper/versions/${version}/builds/${build}/downloads/paper-${version}-${build}.jar`, {
         responseType: 'stream',
@@ -30,5 +30,5 @@ export type PaperBuilds = {
     project_id: string,
     project_name: string,
     version: string,
-    builds: Number[],
+    builds: number[],
 }

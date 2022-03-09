@@ -2,6 +2,8 @@
 
 A simple interactive CLI tool for setting up a PaperMC Server
 
+[![NPM](https://nodei.co/npm/papermc-cli.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/papermc-cli)
+
 ## Installing
 
 ```shell

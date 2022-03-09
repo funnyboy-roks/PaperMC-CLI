@@ -10,8 +10,13 @@ A simple interactive CLI tool for setting up a PaperMC Server
 # Install the CLI globally
 npm i -g papermc-cli
 
-# Run it with
+# And run it with
 paper
+
+# OR
+
+# Run it one time
+npx papermc-cli
 ```
 
 ## TODO
